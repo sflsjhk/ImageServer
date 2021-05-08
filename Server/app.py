@@ -8,7 +8,6 @@ app.config['MYSQL_DATABASE_HOST'] = "localhost"
 app.config['MYSQL_DATABASE_USER'] = "root"
 app.config['MYSQL_DATABASE_PASSWORD'] = "abc26604331"
 app.config['MYSQL_DATABASE_DB'] = "ion_image"
-
 mysql = MySQL()
 mysql.init_app(app)	
 conn = mysql.connect()
@@ -58,11 +57,13 @@ def getImageById(patient_id):
     images = cursor.execute("SELECT * FROM Images WHERE patient_id = %s", patient_id)
     if images >= 1:
         patientImages = cursor.fetchall()
+        cursor.close()
         img_set = []
         for image in patientImages:
             img_set.append(image[3])
         return jsonify({'patient_id':patient_id, 'imageURLs':img_set})
     else:
+        cursor.close()
         return jsonify({'error':'Patient does not have image in database'})
 
 if __name__ == '__main__':
