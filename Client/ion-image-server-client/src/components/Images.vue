@@ -1,6 +1,6 @@
 <template>
-    <div :key="image.image_url" v-for="image in images">
-        <img :src=image.image_url>
+    <div :key="image" v-for="image in images">
+        <img :src=image>
     </div>
 </template>
 

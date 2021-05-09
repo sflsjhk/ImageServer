@@ -1,7 +1,9 @@
 from flaskext.mysql import MySQL
 from flask import Flask, render_template, jsonify,request
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # MySql setup
 app.config['MYSQL_DATABASE_HOST'] = "localhost"
@@ -16,14 +18,13 @@ conn = mysql.connect()
 @app.route('/', methods = ['GET'])
 def index():
     # Get Patient's first/last name from Restful API Json Request
-    patient_json = request.get_json()
-    if not patient_json:
+    first_name = request.args.get('first_name')
+    last_name = request.args.get('last_name')
+    print(first_name)
+    if not first_name or not last_name:
         # no input
         return jsonify({'error':'input missing'})
     else:
-        first_name = patient_json['first_name']
-        last_name = patient_json['last_name']
-        
         # Mysql Cursor for getting Data in DB
         cursor = conn.cursor()
         # Query to get images by first/last name
@@ -44,7 +45,7 @@ def index():
             img_set = []
             for image in patientImages:
                 img_set.append(image[3])
-            return jsonify({'patient_name':patient_json, 'imageURLs':img_set})
+            return jsonify({'patient_name':first_name + ' ' + last_name, 'imageURLs':img_set})
         else:
             cursor.close()
             return jsonify({'error':'Patient does not have image in database'})

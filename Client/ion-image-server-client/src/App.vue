@@ -1,36 +1,37 @@
 <template>
   <div class="container">
     <h1>Ion Patient Image Search</h1>
-    <input type="text" v-model="search" placeholder="First Name" />
-    <input type="text" v-model="search" placeholder="Last Name" />
+    <SearchPatient @add-patient="addPatientName" />
     <Images :images='images' />
   </div>
 </template>
 
 <script>
 import Images from './components/Images'
-// import { fetchImages } from './fetchImages.js'
+import SearchPatient from './components/searchPatient'
+import { fetchImages } from './fetchImages.js'
 export default {
   name: 'App',
   components: {
-    Images
+    Images,
+    SearchPatient
   },
   data () {
     return {
+      first_name: String,
+      last_name: String,
       images: []
     }
   },
+  methods: {
+    async addPatientName (newSerachQuery) {
+      this.first_name = newSerachQuery.first_name
+      this.last_name = newSerachQuery.last_name
+      this.images = await fetchImages(this.first_name, this.last_name)
+    }
+  },
   created () {
-    // this.images = fetchImages('Jim', 'Jones')
-    this.images = [
-      {
-        id: 1,
-        image_url: 'https://hekangjia.s3.us-east-2.amazonaws.com/ion_image/1.jpg'
-      },
-      {
-        id: 4,
-        image_url: 'https://hekangjia.s3.us-east-2.amazonaws.com/ion_image/4.jpg'
-      }]
+    this.images = fetchImages(this.first_name, this.last_name)
   }
 }
 </script>

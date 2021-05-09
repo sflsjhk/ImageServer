@@ -16,10 +16,9 @@ async function fetchImages (first_name, last_name) {
         'Access-Control-Allow-Origin': '*',
         'Content-type': 'application/json'
      }
-    console.log(first_name, last_name)
     let result = undefined
     try {
-        const response = await axios.get('http://localhost:5000', requestData, header)
+        const response = await axios.get('http://localhost:5000', { params: requestData }, header)
         result = response.data.imageURLs
     } catch (error) {
         console.log(error)
