@@ -6,10 +6,11 @@ app = Flask(__name__)
 CORS(app)
 
 # MySql setup
-app.config['MYSQL_DATABASE_HOST'] = "localhost"
-app.config['MYSQL_DATABASE_USER'] = "root"
-app.config['MYSQL_DATABASE_PASSWORD'] = "abc26604331"
-app.config['MYSQL_DATABASE_DB'] = "ion_image"
+app.config['MYSQL_DATABASE_HOST'] = "image-sql.cz2espbhrwak.us-east-1.rds.amazonaws.com"
+app.config['MYSQL_DATABASE_PORT'] = 3306
+app.config['MYSQL_DATABASE_USER'] = "admin"
+app.config['MYSQL_DATABASE_PASSWORD'] = "intuitive"
+app.config['MYSQL_DATABASE_DB'] = "image_sql"
 mysql = MySQL()
 mysql.init_app(app)	
 conn = mysql.connect()
