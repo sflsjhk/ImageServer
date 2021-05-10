@@ -1,8 +1,26 @@
 # ImageServer
+A prototype server and client that allow a user to search and retrieve medical images from a central storage location.
+
+## Setup
+### Client
+
+In the Client/client directory, run the following shell instructions.
+```
+npm install
+```
+Compiles and hot-reloads for development
+```
+npm run serve
+```
+Open http://localhost:8080/ on browser to access the Client page.
+
+You should see something like this:
+![client_demo](client_demo.png)
+
 ## System Components
 
-1. Client(Vue)
-2. Server(Flask)
+1. Client (Vue.js)
+2. Server (Flask)
 3. Database (MySql on AWS RDS)
 4. Data Storage (AWS S3)
 
