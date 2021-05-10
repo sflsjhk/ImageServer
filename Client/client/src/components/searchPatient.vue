@@ -1,21 +1,17 @@
 <template>
   <form @submit="onSubmit" class="add-form">
-    <div class="form-control">
-      <label>First Name</label>
-      <input type="text" v-model="first_name" name="first_name" placeholder="Patient's First Name" />
-    </div>
 
-    <div class="form-control">
-      <label>Last Name</label>
-      <input
-        type="text"
-        v-model="last_name"
-        name="last_name"
-        placeholder="Patient's Last Name"
-      />
-    </div>
+    <v-text-field
+      type="text"
+      label="Patient's first name"
+      v-model="first_name"></v-text-field>
 
-    <input type="submit" value="Search" class="btn btn-block" />
+    <v-text-field
+    type="text"
+    label="Patient's last name"
+    v-model="last_name"></v-text-field>
+
+    <v-btn color="primary" type="submit">Search</v-btn>
   </form>
 </template>
 

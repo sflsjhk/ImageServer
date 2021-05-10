@@ -1,4 +1,4 @@
-# ion-image-server-client
+# client
 
 ## Project setup
 ```
