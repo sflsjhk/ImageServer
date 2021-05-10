@@ -42,10 +42,14 @@ def index():
         if images >= 1:
             patientImages = cursor.fetchall()
             cursor.close()
-            img_set = []
+            img_list = []
             for image in patientImages:
-                img_set.append(image[3])
-            return jsonify({'patient_name':first_name + ' ' + last_name, 'imageURLs':img_set})
+                image_details = {
+                  'image_url': image[3],
+                  'date_taken': image[2]
+                }
+                img_list.append(image_details)
+            return jsonify({'patient_name':first_name + ' ' + last_name, 'images':img_list})
         else:
             cursor.close()
             return jsonify({'error':'Patient does not have image in database'})
@@ -57,12 +61,16 @@ def getImageById(patient_id):
     # Query to get images by patient id
     images = cursor.execute("SELECT * FROM Images WHERE patient_id = %s", patient_id)
     if images >= 1:
-        patientImages = cursor.fetchall()
+        patient_images = cursor.fetchall()
         cursor.close()
-        img_set = []
-        for image in patientImages:
-            img_set.append(image[3])
-        return jsonify({'patient_id':patient_id, 'imageURLs':img_set})
+        img_list = []
+        for image in patient_images:
+            image_details = {
+                  'image_url': image[3],
+                  'date_taken': image[2]
+                }
+            img_list.append(image_details)
+        return jsonify({'patient_id':patient_id, 'images':img_list})
     else:
         cursor.close()
         return jsonify({'error':'Patient does not have image in database'})

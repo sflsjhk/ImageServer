@@ -19,7 +19,7 @@ async function fetchImages (first_name, last_name) {
     let result = undefined
     try {
         const response = await axios.get('http://localhost:5000', { params: requestData }, header)
-        result = response.data.imageURLs
+        result = response.data.images
     } catch (error) {
         console.log(error)
         result = []
